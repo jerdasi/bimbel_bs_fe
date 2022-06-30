@@ -12,7 +12,7 @@
 }
 .logo{
     margin-top: 14px;
-    padding: 10px ;
+    padding: 10px 0 ;
     width: 117px;
     height: 44px;
 }
@@ -26,6 +26,8 @@
 
 .menu ul li{
     padding: 10px;
+    padding-right: 0;
+    margin-right: 0;
     margin: 18px;
     text-decoration: none;
     list-style: none;
@@ -40,4 +42,6 @@
     color: white;
     margin-top: -10px;
     box-shadow: none;
+    border-style: none;
+    margin-left: 30px;
 }

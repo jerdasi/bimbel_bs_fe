@@ -17,7 +17,7 @@ function Footer() {
                 <p>Ikuti Beta Smart di media sosial <img src={fb} className='iconSocmed' /><img src={ig} className='iconSocmed' />
                 Hubungi Beta Smart di <img src={email} className='iconSocmed' /><img src={wa} className='iconSocmed' /></p>
             </div>
-            <div><button><img src={arrow} className='iconSocmed'/>Lihat Alamat di Gmaps</button></div>
+            <div><button className='button'><img src={arrow} className='iconSocmed'/>Lihat Alamat di Gmaps</button></div>
         </div>
     </div>
     </>
