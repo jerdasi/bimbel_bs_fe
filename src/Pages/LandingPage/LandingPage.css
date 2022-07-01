@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Nunito:wght@500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Red+Hat+Display:wght@700&family=Roboto:wght@300;500;700&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+}
 .hero{
     width: 100%;
 }
@@ -60,12 +63,17 @@
     padding-top: 40px;
     padding: 40px 10px;
 }
+.red{
+    border-color: #EA2340;
+}
 
 .contentRekom{
     width: 90%;
     margin: auto;
 }
-
+.contentRekom h1{
+    font-weight: 700;
+}
 .listRekom {
     display: flex;
 }
@@ -75,7 +83,8 @@
 .listRekom ul li{
     list-style: none;
     box-sizing: border-box;
-    border: 2px solid red;
+    border: 1px solid ;
+    background-color:white;
     padding: 30px;
     padding-bottom: 0;
     border-radius: 12px;
@@ -89,10 +98,12 @@
 
 .whyBeta{
     width: 100%;
+    padding: 30px 0;
 }
 .whyBeta h1{
     text-align: center;
     padding: 20px;
+    font-weight: 700;
 }
 .contentWhy{
     width: 90%;
@@ -102,7 +113,7 @@
 }
 .contentWhy img{
     width: 516px;
-    height: 481px;
+    height: 500px;
 }
 .reasons p{
     align-items: center;
@@ -118,12 +129,19 @@
 .frList{
     box-sizing: border-box;
     border: 1px red solid;
-    margin: 6px;
+    margin:  12px 6px;
     padding: 10px;
     border-radius: 12px;
 }
 .frList h3{
     font-size: 16px;
+    background:#EA2340;
+    padding: 10px;
+    margin: -11px;
+    margin-bottom: 10px;
+    border-radius: 12px 12px 0  0 ;
+    color: white;
+    font-weight: bold;
 }
 .frList p{
     font-size: 14px;

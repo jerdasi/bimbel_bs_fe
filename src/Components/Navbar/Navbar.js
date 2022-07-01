@@ -1,7 +1,8 @@
 import React from 'react'
-import '../Navbar/Navbar.css'
+import './Navbar.css'
 import { Container, Row, Col } from "react-bootstrap";
 import logo from '../../Images/logo.svg'
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -13,10 +14,10 @@ function Navbar() {
             </div>
             <div className='menu'>
                 <ul>
-                    <li><a href='#'>Beranda</a></li>
-                    <li>Testimoni</li>
-                    <li>Paket Bimbingan</li>
-                    <li>FAQ</li>
+                    <li><a href='/' >Beranda</a></li>
+                    <li><a href='/'>Testimoni</a></li>
+                    <li><a href='/'>Paket Bimbingan</a></li>
+                    <li><a href='/'>FAQ</a></li>
                     <li><button>Daftar</button></li>
                 </ul>
             </div>

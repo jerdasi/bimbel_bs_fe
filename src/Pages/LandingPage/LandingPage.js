@@ -1,7 +1,6 @@
 import React from 'react'
 import hero from '../../Images/Hero-Images.svg'
 import insigh from '../../Images/insignia.svg'
-import book from '../../Images/book.svg'
 import why from '../../Images/6333765.svg'
 import '../LandingPage/LandingPage.css'
 
@@ -25,17 +24,20 @@ function LandingPage() {
                 <p>Pilih sendiri atau ikuti rekomendasi kami</p>
                 <div className='listRekom'>
                     <ul>
-                        <li className='frRekom'><img src={insigh}/><h4>Rekomendasi</h4></li>
-                        <li className='frRekom'><img src={book}/><h4>Belum Sekolah</h4></li>
-                        <li className='frRekom'><img src={book}/><h4>SD</h4></li>
-                        <li className='frRekom'><img src={book}/><h4>SMP</h4></li>
-                        <li className='frRekom'><img src={book}/><h4>SMA</h4></li>
+                        {classes.map((item, index) =>{
+                            return(
+                                <li key={index} className={item.cName}>
+                                    <img src={item.icon}/>
+                                    <br/>{item.title}
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>
         </div>
         <div className='whyBeta'>
-            <h1>Kenapa harus Beta Smart?</h1>
+            <h1>Kenapa harus <span style={{color: '#EA2340'}}>Beta Smart</span> ?</h1>
             <div className='contentWhy'>
                 <img src={why}/>
                 <div className='reasons'>
@@ -78,5 +80,38 @@ function LandingPage() {
     </>
   )
 }
+
+const classes = [
+    {
+        title: 'Rekomendasi',
+        icon: '../Images/insignia.png',
+        cName: 'red'
+    },
+    {
+        title: 'Belum Sekolah',
+        icon: '../Images/book.svg',
+        cName: 'another'
+    },
+    {
+        title: 'SD',
+        icon: '../Images/book.svg',
+        cName: 'another'
+    },
+    {
+        title: 'SMP',
+        icon: '../Images/book.svg',
+        cName: 'another'
+    },
+    {
+        title: 'SMA',
+        icon: '../Images/book.svg',
+        cName: 'another'
+    },
+    {
+        title: 'Conversation',
+        icon: '../Images/book.svg',
+        cName: 'another'
+    }
+]
 
 export default LandingPage
