@@ -148,3 +148,8 @@
     align-items: flex-start;
     text-align: left;
 }
+
+.arrow{
+    font-size: 36px;
+    cursor: pointer;
+}

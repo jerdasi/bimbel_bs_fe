@@ -15,9 +15,9 @@ function Navbar() {
             <div className='menu'>
                 <ul>
                     <li><a href='/' >Beranda</a></li>
-                    <li><a href='/'>Testimoni</a></li>
-                    <li><a href='/'>Paket Bimbingan</a></li>
-                    <li><a href='/'>FAQ</a></li>
+                    <li><a href='/testimoni'>Testimoni</a></li>
+                    <li><a href='/paket-bimbingan'>Paket Bimbingan</a></li>
+                    <li><a href='/faq'>FAQ</a></li>
                     <li><button>Daftar</button></li>
                 </ul>
             </div>
