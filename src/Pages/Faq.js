@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BsFillArrowUpSquareFill, BsFillArrowDownSquareFill } from "react-icons/bs";
-import faq from '../../Components/faq.json'
+import faq from '../Components/json/faq.json'
 
 
 function Faq() {
@@ -16,11 +16,12 @@ function Faq() {
 
   return (
     <div className='faq'>
-        <div>
-            <h1>Frequently Asked Question</h1>
-        </div>
+        
 
         <Container>
+            <Row>
+                <h1>Frequently Asked Question</h1>
+            </Row>
             <Row className='rowFaq'>
                 <Col >
                 <div className='accordion'>
