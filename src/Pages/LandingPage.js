@@ -10,7 +10,7 @@ import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 function LandingPage() {
   return (
     <>
-    <div className='w-full  py-16 px-10 mx-auto bg-white'>
+    <div className='w-full  py-32 px-10 mx-auto bg-white'>
         <div className=' mx-auto grid md:grid-cols-2'>
             <div className='flex flex-col justify-center'>
               <h1 className='text-merah-bs font-bold text-4xl py-2 md:text-5xl sm:py-1'>Beta Smart</h1>
@@ -30,12 +30,12 @@ function LandingPage() {
         <h1 className='font-bold text-3xl'>Daftar dan Mulai Belajar</h1>
           <p className='pb-2'>Pilih sendiri atau ikuti rekomendasi kami</p>
           <div className=''>
-          <ul className='flex flex-row justify-between'>
+          <ul className='flex flex-row justify-between overflow-y-auto'>
               {classes.map((item, index) => {
                 return(
-                  <li key={index} className='w-[220px] p-2 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300'>
-                  <img src={item.icon}/>
-                  <h4>{item.title}</h4>
+                  <li key={index} className='w-1/2 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300'>
+                  <img src={item.icon} className='w-[90px]'/>
+                  <h4 className='text-sm'>{item.title}</h4>
                 </li>
                 )
               })}

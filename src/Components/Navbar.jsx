@@ -9,7 +9,7 @@ function Navbar() {
     }
 
   return (
-    <div className='w-full h-24 flex justify-between items-center bg-antique mx-auto px-4 lg:px-20 '>
+    <div className=' w-full h-24 flex justify-between items-center bg-antique mx-auto px-4 lg:px-20 '>
         <img src={logo} alt="" className='' />
         <ul className='hidden md:flex'>
             <li className='p-4'>Beranda</li>
