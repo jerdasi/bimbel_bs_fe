@@ -96,7 +96,7 @@ function PaketBimbinganRekomendasi() {
                     </div>
                     
                     <h3>Nilai Rapor</h3>
-                    <div className='w-full flex justify-between'>
+                    <div className='w-full md:flex md:justify-between'>
                         <div className='w-1/2'>
                             <div>
                                 <label className='text-md font-light py-1'>Jenjang Pendidikan</label>

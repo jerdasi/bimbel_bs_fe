@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BsFillArrowUpSquareFill, BsFillArrowDownSquareFill } from "react-icons/bs";
+import whyus from '../Assets/Images/whyus.png'
 import faq from '../Components/json/faq.json'
 
 
@@ -15,56 +16,50 @@ function Faq() {
     }
 
   return (
-    <div className='faq'>
+    <div className='bg-white '>
         
-
-        <Container>
-            <Row>
-                <h1>Frequently Asked Question</h1>
-            </Row>
-            <Row className='rowFaq'>
-                <Col >
-                <div className='accordion'>
-                {faq.map((item, index) => {
-                return(
-                    <div key={index}>
-                        <div className='accordionFaq'>
-                            <div className='accordionHeading'>
-                                <div className='containerFaq' onClick={() => toggle(index)}>
-                                    <h3>{item.tanya}</h3>
-                                    <p>
-                                        {selected === index ? (
-                                            <div className='icons'><BsFillArrowUpSquareFill/></div>
-                                        ) : (
-                                            <div className='icons'><BsFillArrowDownSquareFill/></div>
-                                        )}
-                                    </p>
+        <div className='p-16 py-12 '>
+        <h1 className='px-2 mb-[-15px]'>Frequently Asked Question</h1>
+            <div className='md:flex justify-between items-center'>
+                
+                <div className='mr-4'>
+                    {faq.map((item,index) => {
+                        return(
+                            <div key={index}>
+                                <div>
+                                    <div onClick={() => toggle(index)} className='flex bg-antique p-2 md:p-4 rounded-md justify-between items-center  m-2' >
+                                        <h3 className='text-lg md:text-xl'>{item.tanya}</h3>
+                                        <p className='p-2'>
+                                            {selected === index ? (
+                                                <div><BsFillArrowUpSquareFill size={30} color={`gray`}/></div>
+                                            ) : (
+                                                <div><BsFillArrowDownSquareFill size={30} color={`gray`}/></div>
+                                            )}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    
+                                        <div className={selected === index ? 'p-2 bg-white rounded-b-xl' : 'hidden max-h-0 mt-5 border-2'}>
+                                         <p>{item.jawab}</p>
+                                         </div>
+                                    
+                                   
                                 </div>
                             </div>
-                            <div className='accordionContent'>
-                                <div className={ selected === index ? 'content show' : 'content'}>
-                                    <p>{item.jawab}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )
-            })}
-        
-
+                        )
+                    })}
                 </div>
-                </Col>
-
-                <Col>
-                <div className='faqImage'></div>
-                </Col>
-            </Row>
-        </Container>
+                <img src={whyus} className='w-full md:w-[40%] h-[400px] md:h-max'/>
+            </div>
+            
+        </div>
 
         
             
     </div>
   )
 }
+
 
 export default Faq
