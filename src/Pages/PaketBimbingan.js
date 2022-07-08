@@ -1,8 +1,22 @@
-import React from 'react'
+import React , {useState, useEffect} from 'react'
 import register from '../Assets/Images/register.png'
-import classes from '../Components/json/classes.json'
 
-function PaketBimbinganRekomendasi() {
+
+function PaketBimbingan() {
+
+    const [classes, setClasses] = useState([])
+
+    useEffect(()=> {
+        fetchdata()
+    }, [])
+
+    const fetchdata = async() => {
+        const response = await fetch('http://localhost:8080/classes')
+        const data = await response.json()
+
+        setClasses(data)
+    }
+
   return (
     <div className='bg-white px-16 py-12'>
         <div className='w-full  md:w-[70%]'>
@@ -185,4 +199,4 @@ function PaketBimbinganRekomendasi() {
   )
 }
 
-export default PaketBimbinganRekomendasi
+export default PaketBimbingan

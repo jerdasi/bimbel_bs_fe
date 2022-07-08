@@ -6,8 +6,7 @@ import LandingPage from './Pages/LandingPage';
 import Faq from './Pages/Faq';
 import PembayaranBerhasil from './Pages/Pembayaran/PembayaranBerhasil';
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import PaketBimbinganRekomendasi from './Pages/PaketBimbinganRekomendasi';
-import PaketBimbinganManual from './Pages/PaketBimbinganManual';
+import PaketBimbingan from './Pages/PaketBimbingan';
 
 function App() {
   return (
@@ -17,8 +16,8 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/faq' element={<Faq/>}></Route>
-          <Route path='/paketbimbingan-rekomendasi' element={<PaketBimbinganRekomendasi/>}/>
-          <Route path='/paketbimbingan-manual' element={<PaketBimbinganManual/>}/>
+          <Route path='/paketbimbingan' element={<PaketBimbingan/>}/>
+          
           <Route path='/pembayaran-berhasil' element={<PembayaranBerhasil/>}></Route>
         </Routes>
       </BrowserRouter>
