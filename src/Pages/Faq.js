@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BsFillArrowUpSquareFill, BsFillArrowDownSquareFill } from "react-icons/bs";
-import whyus from '../Assets/Images/whyus.png'
+import faqq from '../Assets/Images/faq.jpg'
 import faq from '../Components/json/faq.json'
 
 
@@ -20,7 +20,7 @@ function Faq() {
         
         <div className='p-16 py-12 '>
         <h1 className='px-2 mb-[-15px]'>Frequently Asked Question</h1>
-            <div className='md:flex justify-between items-center'>
+            <div className='md:flex justify-between items-center py-16'>
                 
                 <div className='mr-4'>
                     {faq.map((item,index) => {
@@ -50,7 +50,7 @@ function Faq() {
                         )
                     })}
                 </div>
-                <img src={whyus} className='w-full md:w-[40%] h-[400px] md:h-max'/>
+                <img src={faqq} className='w-full md:w-[50%] h-[200px] md:h-max'/>
             </div>
             
         </div>

@@ -1,6 +1,5 @@
 import React from 'react'
-//import image from '../../assets/Images/pembayaran.png'
-import './PembayaranBerhasil.css'
+
 
 function PembayaranBerhasil() {
   return (

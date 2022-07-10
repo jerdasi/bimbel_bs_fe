@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import FormRegistManual from './FormRegistManual'
-import FormRegistRekomendasi from './FormRegistRekomendasi'
+import FormRegistManual from './Pendaftaran/FormRegistManual'
+import FormRegistRekomendasi from './Pendaftaran/FormRegistRekomendasi'
 
 
 function PaketBimbingan() {

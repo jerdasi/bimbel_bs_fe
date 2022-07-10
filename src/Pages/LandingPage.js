@@ -22,7 +22,7 @@ function LandingPage() {
 
   return (
     <>
-      <div className='w-full  py-32 px-10 mx-auto bg-white'>
+      <div className='w-full  py-32 px-16 mx-auto bg-white'>
         <div className=' mx-auto grid md:grid-cols-2'>
           <div className='flex flex-col justify-center'>
             <h1 className='text-merah-bs font-bold text-4xl py-2 md:text-5xl sm:py-1'>Beta Smart</h1>

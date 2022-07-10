@@ -1,12 +1,17 @@
 import React from 'react'
-import register from '../Assets/Images/register.png'
+import register from '../../Assets/Images/register.png'
 
 function FormRegistManual() {
   return (
     <form>
-    <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Rekomendasi</span></h2>
-    <p>Fitur ini dapat membantu anak anda untuk menemukan kelas yang cocok dengan kemampuan maupun kepribadiannya. Menemukan kelas yang tepat dapat mempermudah anak didik untuk menyerap pembelajaran di bimbingan dengan baik sehingga berguna dalam pembelajaran di sekolah nya.</p>
+    <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Sekolah Dasar</span></h2>
+    <p>Bimbingan Belajar bagi anak sekolah dasar bertujuan untuk membantu siswa SD dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
     <div>
+       
+
+        <div>
+            <h3 className='font-bold'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
+        </div>
 
         <h3>Informasi Umum</h3>
         <div className='mx-auto w-full flex justify-between' >

@@ -1,5 +1,5 @@
 import React from 'react'
-import register from '../Assets/Images/register.png'
+import register from '../../Assets/Images/register.png'
 
 function FormRegistRekomendasi() {
     return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from '../Assets/Images/logo.svg'
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
+import LandingPage from '../Pages/LandingPage'
 
 function Navbar() {
     const [nav, setNav] = useState(false)
@@ -12,15 +13,15 @@ function Navbar() {
 
 
     return (
-        <div className=' w-full h-24 flex justify-between items-center bg-antique mx-auto px-4 lg:px-20 '>
+        <div className=' w-full h-24 flex justify-between items-center bg-antique mx-auto px-16 lg:px-20 '>
             <img src={logo} alt="" className='' />
             <ul className='hidden md:flex'>
-                <li className='p-4 hover:text-merah-bs hover:font-bold cursor-pointer'
-                >Beranda</li> 
-                <li className='p-4 hover:text-merah-bs hover:font-bold'>Testimoni</li>
-                <li className='p-4 hover:text-merah-bs hover:font-bold'>Paket Bimbingan</li>
-                <li className='p-4 hover:text-merah-bs hover:font-bold'>FAQ</li>
-                <li><button className='py-2 px-4 mt-3 bg-merah-bs text-white rounded-lg'>Daftar</button></li>
+                <a href='/' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold cursor-pointer'
+                >Beranda</li> </a>
+                <a href='/' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>Testimoni</li></a>
+                <a href='/paket-bimbingan' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>Paket Bimbingan</li></a>
+                <a href='/faq' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>FAQ</li></a>
+                <li><button className='py-2 px-4 mt-3 bg-merah-bs text-white rounded-lg font-bold'>Daftar</button></li>
             </ul>
             <div onClick={handleNav} className='block md:hidden'>
                 {!nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
