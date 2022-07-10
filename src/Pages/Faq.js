@@ -50,7 +50,7 @@ function Faq() {
                         )
                     })}
                 </div>
-                <img src={faqq} className='w-full md:w-[50%] h-[200px] md:h-max'/>
+                <img src={faqq} className='w-full md:w-[50%] h-[200px] md:h-[400px]'/>
             </div>
             
         </div>
