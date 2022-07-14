@@ -1,12 +1,12 @@
 import axios from 'axios'
 import moment from 'moment'
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 import register from '../../Assets/Images/register.png'
 
 function FormRegistRekomendasi() {
-    
-    
-    
+
+
+
     return (
         <form>
             <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Rekomendasi</span></h2>
@@ -19,75 +19,45 @@ function FormRegistRekomendasi() {
                         <div>
                             <label className='text-md font-light py-1'>Nama Lengkap</label>
                             <br />
-                            <input 
-                                type='text' 
+                            <input
+                                type='text'
                                 name='nama_siswa'
                                 id='nama_siswa'
                                 placeholder='Nama Lengkap Peserta Didik'
-                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' 
-                                onChange={ (e) => 
-                                    setFormData({
-                                        ...formData,
-                                        nama: e.target.value,
-                                    })
-                                }
-                                value= {formData.nama}
-                                ></input>
+                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500'
+                                
+                            ></input>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Tempat, Tanggal Lahir</label>
                             <br />
-                            <input 
-                                type='text' 
+                            <input
+                                type='text'
                                 name='tempat_siswa'
                                 id='tempat_siswa'
                                 placeholder='Tempat Tanggal Lahir Peserta Didik'
-                                className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light' 
-                                onChange={(e) => 
-                                    setFormData({
-                                        ...formData,
-                                        tempat: e.target.value,
-                                    })}
-                                value={formData.tempat}
-                                ></input>
+                                className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light'
+                                
+                            ></input>
                             <input
                                 type='date'
                                 name='tanggal_siswa'
                                 id='tanggal_siswa'
                                 className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light'
-                                placeholder='dd-mm-yyyy'
-                                defaultValue={moment(
-                                    formData.tanggal_lahir
-                                ).format('yyyy-MM-DD')}
-                                value={moment(
-                                    formData.tanggal_lahir
-                                ).format('yyyy-MM-DD')}
-                                onChange={(e) => 
-                                    setFormData({
-                                        ...formData,
-                                        tanggal_lahir: moment(
-                                            e.target.value
-                                        ).format('yyyy-MM-DD')
-                                    })}
-                                >
+                                
+                            >
                             </input>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Alamat</label>
                             <br />
                             <textarea
-                                type='text' 
+                                type='text'
                                 id=''
                                 rows='5'
-                                placeholder='Alamat Peserta Didik' 
+                                placeholder='Alamat Peserta Didik'
                                 className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light'
-                                onChange={(e) => {
-                                    setFormData({
-                                        ...formData,
-                                        alamat: e.target.value,
-                                    })
-                                }}
-                                value={formData.alamat}></textarea>
+                               ></textarea>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Asal Sekolah</label>
