@@ -9,7 +9,6 @@ function PaketBimbingan() {
 
     const [jenjang, setJenjang] = useState([])
     
-
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)

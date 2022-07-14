@@ -3,50 +3,10 @@ import moment from 'moment'
 import React , {useState} from 'react'
 import register from '../../Assets/Images/register.png'
 
-function FormRegistRekomendasi({handlePeserta, siswa}) {
+function FormRegistRekomendasi() {
     
-    const [formData, setFormData] = useState(siswa)
-
-    const handleSubmit = () => {
-        setFormData({
-            nama: "",
-            tempat: "",
-            tanggal_lahir: new Date(),
-            alamat: "",
-            id_jenjang: 0,
-            asal_sekolah: "",
-            fotoPeserta: null,
-            nama_ayah:"",
-            nama_ibu: "",
-            telepon_anak: "",
-            telepon_ayah: "",
-            telepon_ibu: ""
-        })
-    }
-
-    const registerSiswa = (event) =>{
-        event.preventDefault()
-        delete formData["id_kelas"]
-        const config = {
-            headers: { "Content-Type" : "multipart/form-data" }
-        }
-
-        let form_data = new FormData()
-        for(let key in FormData){
-            form_data.append(key, formData[key])
-        }
-        axios
-            .post(
-                `${process.env.REACT_APP_API}/pendaftaran`,
-                form_data,
-                config
-            )
-            .then((res) => {
-                handlePeserta(res.data.data)
-            })
-            .catch((err) => console.log(err))
-
-    }
+    
+    
     return (
         <form>
             <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Rekomendasi</span></h2>
