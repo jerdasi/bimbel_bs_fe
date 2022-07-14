@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import insignia from '../Assets/Images/insignia.png'
 import FormRegistManual from './Pendaftaran/FormRegistManual'
 import FormRegistRekomendasi from './Pendaftaran/FormRegistRekomendasi'
 
 
 function PaketBimbingan() {
 
-    const [classes, setClasses] = useState([])
+    const [jenjang, setJenjang] = useState([])
+    
 
     useEffect(() => {
-        fetchdata()
-    }, [])
-
-    const fetchdata = async () => {
-        const response = await fetch('http://localhost:8080/classes')
-        const data = await response.json()
-
-        setClasses(data)
-    }
+        axios
+            .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
+            .then((res) => setJenjang(res.data.data));
+        
+    })
 
     return (
         <div className='bg-white px-16 py-12'>
@@ -27,20 +26,19 @@ function PaketBimbingan() {
             <div className='w-full'>
                 <h3 className='text-3xl font-bold'><span className='text-merah-bs'>Pilih</span> atau <span className='text-merah-bs'> ikuti </span> rekomendasi kategori anak anda</h3>
                 <ul className='flex flex-row justify-between'>
-                    {classes.map((item, index) => {
+                    {jenjang.map((item) => {
                         return (
-                            <li key={index}
-                                className='w-[120px]  p-2 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300'>
-                                <img src={item.icon} />
-                                <h4 className='text-sm'>{item.title}</h4>
+                            <li key={item.id} className='w-1/4 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
+                                <img src={insignia} className='w-[90px]' />
+                                <h4 className='text-sm'>{item.nama_jenjang}</h4>
                             </li>
                         )
                     })}
                 </ul>
             </div>
             <div>
-                <FormRegistRekomendasi/>
-                <FormRegistManual/>
+                
+                <FormRegistManual />
             </div>
         </div>
     )

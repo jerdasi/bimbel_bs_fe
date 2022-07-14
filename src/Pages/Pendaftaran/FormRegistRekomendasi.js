@@ -1,7 +1,52 @@
-import React from 'react'
+import axios from 'axios'
+import moment from 'moment'
+import React , {useState} from 'react'
 import register from '../../Assets/Images/register.png'
 
-function FormRegistRekomendasi() {
+function FormRegistRekomendasi({handlePeserta, siswa}) {
+    
+    const [formData, setFormData] = useState(siswa)
+
+    const handleSubmit = () => {
+        setFormData({
+            nama: "",
+            tempat: "",
+            tanggal_lahir: new Date(),
+            alamat: "",
+            id_jenjang: 0,
+            asal_sekolah: "",
+            fotoPeserta: null,
+            nama_ayah:"",
+            nama_ibu: "",
+            telepon_anak: "",
+            telepon_ayah: "",
+            telepon_ibu: ""
+        })
+    }
+
+    const registerSiswa = (event) =>{
+        event.preventDefault()
+        delete formData["id_kelas"]
+        const config = {
+            headers: { "Content-Type" : "multipart/form-data" }
+        }
+
+        let form_data = new FormData()
+        for(let key in FormData){
+            form_data.append(key, formData[key])
+        }
+        axios
+            .post(
+                `${process.env.REACT_APP_API}/pendaftaran`,
+                form_data,
+                config
+            )
+            .then((res) => {
+                handlePeserta(res.data.data)
+            })
+            .catch((err) => console.log(err))
+
+    }
     return (
         <form>
             <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Rekomendasi</span></h2>
@@ -14,19 +59,75 @@ function FormRegistRekomendasi() {
                         <div>
                             <label className='text-md font-light py-1'>Nama Lengkap</label>
                             <br />
-                            <input type='text' placeholder='Nama Lengkap Peserta Didik'
-                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' ></input>
+                            <input 
+                                type='text' 
+                                name='nama_siswa'
+                                id='nama_siswa'
+                                placeholder='Nama Lengkap Peserta Didik'
+                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' 
+                                onChange={ (e) => 
+                                    setFormData({
+                                        ...formData,
+                                        nama: e.target.value,
+                                    })
+                                }
+                                value= {formData.nama}
+                                ></input>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Tempat, Tanggal Lahir</label>
                             <br />
-                            <input type='text' placeholder='Tempat Tanggal Lahir Peserta Didik'
-                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light' ></input>
+                            <input 
+                                type='text' 
+                                name='tempat_siswa'
+                                id='tempat_siswa'
+                                placeholder='Tempat Tanggal Lahir Peserta Didik'
+                                className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light' 
+                                onChange={(e) => 
+                                    setFormData({
+                                        ...formData,
+                                        tempat: e.target.value,
+                                    })}
+                                value={formData.tempat}
+                                ></input>
+                            <input
+                                type='date'
+                                name='tanggal_siswa'
+                                id='tanggal_siswa'
+                                className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light'
+                                placeholder='dd-mm-yyyy'
+                                defaultValue={moment(
+                                    formData.tanggal_lahir
+                                ).format('yyyy-MM-DD')}
+                                value={moment(
+                                    formData.tanggal_lahir
+                                ).format('yyyy-MM-DD')}
+                                onChange={(e) => 
+                                    setFormData({
+                                        ...formData,
+                                        tanggal_lahir: moment(
+                                            e.target.value
+                                        ).format('yyyy-MM-DD')
+                                    })}
+                                >
+                            </input>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Alamat</label>
                             <br />
-                            <input type='text' placeholder='Alamat Peserta Didik' className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light' ></input>
+                            <textarea
+                                type='text' 
+                                id=''
+                                rows='5'
+                                placeholder='Alamat Peserta Didik' 
+                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light'
+                                onChange={(e) => {
+                                    setFormData({
+                                        ...formData,
+                                        alamat: e.target.value,
+                                    })
+                                }}
+                                value={formData.alamat}></textarea>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Asal Sekolah</label>

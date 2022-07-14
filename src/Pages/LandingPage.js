@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import hero from '../Assets/Images/hero.png'
 import whyus from '../Assets/Images/whyus.png'
+import insignia from '../Assets/Images/insignia.png'
 import whyusjson from '../Components/json/whyus.json'
 import testimoni from '../Components/json/testimoni.json'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
+import axios from 'axios'
 
 
 function LandingPage() {
-  const [classes, setClasses] = useState([])
+  const [jenjang, setJenjang] = useState([])
 
   useEffect(() => {
-    fetchdata()
-  }, [])
-
-  const fetchdata = async () => {
-    const response = await fetch('http://localhost:8080/classes')
-    const data = await response.json()
-
-    setClasses(data)
-  }
+    axios
+        .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
+        .then((res) => setJenjang(res.data.data));
+  })
 
   return (
     <>
@@ -42,12 +39,12 @@ function LandingPage() {
         <h1 className='font-bold text-3xl'>Daftar dan Mulai Belajar</h1>
         <p className='pb-2'>Pilih sendiri atau ikuti rekomendasi kami</p>
         <div className=''>
-          <ul className='flex flex-row justify-between overflow-x-auto'>
-            {classes.map((item, index) => {
+          <ul className='flex flex-row justify-start overflow-x-auto'>
+            {jenjang.map((item) => {
               return (
-                <li key={index} className='w-1/2 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300'>
-                  <img src={item.icon} className='w-[90px]' />
-                  <h4 className='text-sm'>{item.title}</h4>
+                <li key={item.id} className='w-1/4 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
+                  <img src={insignia} className='w-[90px]' />
+                  <h4 className='text-sm'>{item.nama_jenjang}</h4>
                 </li>
               )
             })}
