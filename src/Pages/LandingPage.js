@@ -40,16 +40,16 @@ function LandingPage() {
         <h1 className='font-bold text-3xl'>Daftar dan Mulai Belajar</h1>
         <p className='pb-2'>Pilih sendiri atau ikuti rekomendasi kami</p>
         <div className=''>
-          <ul className='flex flex-row justify-start overflow-x-auto'>
-            <li className='w-1/4 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
-              <img src={insignia} className='w-[90px]'/>
-              <h4 className='text-sm'>Rekomendasi</h4>
+          <ul className='flex flex-row justify-start overflow-x-auto h-1/2'>
+            <li className='w-1/4 p-2 mx-1 md:p-4 md:w-[200px] text-center md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
+              <img src={insignia} className='w-[90px] mx-auto pt-4'/>
+              <h4 className='text-sm mt-10' >Rekomendasi</h4>
             </li>
             {jenjang.map((item) => {
               return (
-                <li key={item.id} className='w-1/4 p-2 md:p-4 md:w-[200px] text-center mx-auto md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
-                  <img src={book} className='w-[90px]' />
-                  <h4 className='text-sm'>{item.nama_jenjang}</h4>
+                <li key={item.id} className='w-1/4  px-4 py-2 md:p-4 md:w-[200px] text-center mx-1 md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center '>
+                  <img src={book} className='w-[90px] mx-auto pt-4' />
+                  <h4 className='text-sm bottom-0 mt-10 w-full'>{item.akronim}</h4>
                 </li>
               )
             })}
@@ -62,7 +62,7 @@ function LandingPage() {
           <img src={whyus}></img>
           <div>
             <p className='text-center'>Beta Smart sebagai penyedia jasa bimbingan belajar, menawarkan beberapa keuntungan yang dapat membantu anak didik dapat belajar dengan baik dan menjadi siswa berprestasi di sekolahnya</p>
-            <div>
+            <div className='flex flex-wrap'>
 
               {whyusjson.map((item, index) => {
                 return (

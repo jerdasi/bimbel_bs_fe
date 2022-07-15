@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import insignia from '../../Assets/Images/insignia.png'
+import { useNavigate } from 'react-router-dom'
+import logo from '../../Assets/Images/logo.svg'
 import register from '../../Assets/Images/register.png'
+import {TbLocation} from 'react-icons/tb'
 
-function FormRegistManual() {
+function FormRegistManual(props) {
 
     const [paket, setPaket] = useState([])
+    const navigate = useNavigate()
 
+    const handleSubmit= (e) =>{
+        e.preventDefault()
+        navigate('/review-pendaftaran')
+        //link url ke midtrans gunakan cara ini
+        //window.open('https://google.com')
+        //window.history.pushState({},'','https://google.com')
+    }
+    
 
     useEffect(() => {
         
@@ -15,27 +26,36 @@ function FormRegistManual() {
             .then((res) => setPaket(res.data.data));
     })
     return (
-        <form>
-            <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Sekolah Dasar</span></h2>
-            <p>Bimbingan Belajar bagi anak sekolah dasar bertujuan untuk membantu siswa SD dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
+        <form onSubmit={handleSubmit} method='POST'> 
+
+            <h2 className='font-bold'>Kelas <span className='text-merah-bs'>{props.title}</span></h2>
+            <p>Bimbingan Belajar bagi anak {props.title} bertujuan untuk membantu siswa {props.akro} dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
             <div>
 
                 
                 <div>
                     <h3 className='font-bold'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
+                    <ul className='flex overflow-x-auto'>
                     {paket.map((item) => {
                         return (
-                            <li key={item.id}>
-                                <h4> {item.nama_paket} </h4>
+                            <li key={item.id} className='w-full px-8 border-2 rounded-md border-red-600 mx-2'>
+                                <div className='flex justify-between py-2'>
+                                    <img src={logo} className='w-[60px]'/>
+                                    <h4 className='text-sm font-bold py-2'> {item.nama_paket} </h4>
+                                </div>
+                                
                                 <p> {item.deskripsi} </p>
-                                <ul>
+                                <ul className='text-sm'>
                                     <li>{item.deskripsi}</li>
                                     <li>{item.jumlah_pertemuan}</li>
                                     <li>{item.harga}</li>
                                 </ul>
+                                <button className='w-full flex mt-1 p-2  px-6 justify-between items-center text-white font-bold bg-merah-bs rounded-md'><TbLocation/>Pilih Kelas Ini</button>
                             </li>
                         )
                     })}
+                    </ul>
+                    
                 </div>
 
                 <h3>Informasi Umum</h3>

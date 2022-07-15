@@ -11,7 +11,7 @@ function RincianPembayaran() {
 
 
                 <div className='md:flex  '>
-                    <div className='p-2 rounded-md border-red-600 border-1 md:w-1/2 md:mr-14 py-14' >
+                    <div className='p-2 mr-14 rounded-md border-red-600 border-1 md:w-3/4 md:mr-14 py-14' >
                         <div className='flex justify-between md:pt-14 pb-6'>
                             <img src={logo} className='px-2' /> <h2 className='text-lg md:text-2xl md:px-2'>Paket Bimbingan Regular</h2>
                         </div>
@@ -24,7 +24,7 @@ function RincianPembayaran() {
                             <li className='list-disc'>Biaya Pendaftaran 1x untuk selamanya</li>
                         </ul>
                     </div>
-                    <div className='pt-4'>
+                    <div className='pt-4 w-full'>
                         <div className='mb-16 pb-10'>
                             <h4 className='text-xl md:text-xl'>Pembayaran : 1 Bulan</h4>
                             <h4 className='text-xl md:text-xl'>Biaya Paket Bimbingan/Bulan : Rp. 400.000,-</h4>
@@ -32,8 +32,8 @@ function RincianPembayaran() {
                             <h4 className='text-xl md:text-xl'>Total : Rp. 600.000,-</h4>
 
                         </div>
-                        <div className='pt-16 mt-10'>
-                            <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-lg rounded-md my-2'>Bayar Sekarang</button>
+                        <div className='pt-16 mt-10 mr-16'>
+                            <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-sm rounded-md my-2 '>Bayar Sekarang</button>
                         </div>
 
                     </div>
