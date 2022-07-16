@@ -12,11 +12,14 @@ function PaketBimbingan() {
     const [selected, setSelected] = useState('rekomendasi')
     const [title, setTitle] = useState('')
     const [akro, setAkro] = useState('')
+    const [kelas, setKelas] = useState('')
+
 
     const _handleSelected = (item) => {
         setSelected(item.akronim)
         setTitle(item.nama_jenjang)
         setAkro(item.akronim)
+        setKelas(item.id)
     }
 
 
@@ -51,9 +54,11 @@ function PaketBimbingan() {
                 </ul>
             </div>
             <div>
-                {selected === 'rekomendasi' ? <FormRegistRekomendasi /> : <FormRegistManual
-                    title={title}
-                    akro={akro} />}
+                {selected === 'rekomendasi' ? <FormRegistRekomendasi /> : <FormRegistManual 
+                title={title} 
+                akro={akro} 
+                kelas={kelas}
+                />}
 
             </div>
         </div>

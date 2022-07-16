@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../Assets/Images/logo.svg'
 import regist from '../../Assets/Images/register.png'
@@ -11,14 +11,15 @@ function FormRegistManual(props) {
 
     const [paket, setPaket] = useState([])
     const navigate = useNavigate()
-    const { id } = useParams()
-    
+    const [idKelas, setIdKelas] = useState('')
+
+
     /*const [register, handleSubmit] = useForm()
     const onSubmit = data =>{
         console.log(data)
     }*/
 
-    const peserta = {
+    const [formValues, setFormValues] = useState({
         nama: "",
         tempat: "",
         tanggal_lahir: moment().format("yyyy-MM-DD"),
@@ -31,11 +32,15 @@ function FormRegistManual(props) {
         telepon_anak: "",
         telepon_ayah: "",
         telepon_ibu: "",
-    }
-    const [formValues, setFormValues] = useState(peserta)
+    })
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        const config = {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }
         let form_data = new FormData()
+
         for (let key in formValues) {
             console.log(key, formValues[key])
             form_data.append(key, formValues[key])
@@ -43,10 +48,13 @@ function FormRegistManual(props) {
         }
         axios
             .post(`${process.env.REACT_APP_API}/peserta-didik`,
-                form_data)
+                form_data,
+                config)
             .then((res) => {
-                navigate('/review-pendaftaran/:id')
-            })
+                // console.log(res.data.data.id)
+                console.log({ id: res.data.data.id, id_paket: idKelas})
+                navigate(`/review-pendaftaran`, { state: { id: res.data.data.id, id_paket: idKelas} })
+            }).catch(err => console.log(err.message))
 
     }
 
@@ -62,11 +70,11 @@ function FormRegistManual(props) {
 
 
     useEffect(() => {
-
         axios
             .get(`${process.env.REACT_APP_API}/paket-bimbingan`)
             .then((res) => setPaket(res.data.data));
-    })
+        setFormValues({ ...formValues, id_jenjang: props.kelas })
+    }, [])
     return (
         <>
             <h2 className='font-bold'>Kelas <span className='text-merah-bs'>{props.title}</span></h2>
@@ -75,30 +83,27 @@ function FormRegistManual(props) {
                 <div>
                     <h3 className='font-bold'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
                     <ul className='w-full flex overflow-x-auto'>
-                        {paket.map((item) => {
+                        {paket.filter(kelas => kelas.id_jenjang === props.kelas).map((paketKelas) => {
                             return (
-                                <li key={item.id}
-                                    onClick={(e) => {
-                                        setFormValues({
-                                            ...formValues,
-                                            id_jenjang: e.target.item.id
-                                        })
-                                    }} className='w-full px-8 border-2 rounded-md border-red-600 mx-2 cursor-pointer hover:scale-105 ease-in-out duration-300'>
+                                <li key={paketKelas.id}
+                                    onClick={()=>{setIdKelas(paketKelas.id)}}
+                                    className='w-full px-8 border-2 rounded-md border-red-600 mx-2 cursor-pointer hover:scale-105 ease-in-out duration-300'>
                                     <div className='flex justify-between py-2'>
                                         <img src={logo} className='w-[60px]' />
-                                        <h4 className='text-sm font-bold py-2'> {item.nama_paket} </h4>
+                                        <h4 className='text-sm font-bold py-2'> {paketKelas.nama_paket} </h4>
                                     </div>
 
-                                    <p> {item.deskripsi} </p>
+                                    <p> {paketKelas.deskripsi} </p>
                                     <ul className='text-sm'>
-                                        <li>{item.deskripsi}</li>
-                                        <li>{item.jumlah_pertemuan}</li>
-                                        <li>{item.harga}</li>
+                                        <li>{paketKelas.deskripsi}</li>
+                                        <li>{paketKelas.jumlah_pertemuan}</li>
+                                        <li>{paketKelas.harga}</li>
                                     </ul>
                                     <button className='w-full flex mt-1 p-2  px-6 justify-between items-center text-white font-bold bg-merah-bs rounded-md'><TbLocation />Pilih Kelas Ini</button>
                                 </li>
                             )
                         })}
+
                     </ul>
 
                 </div>

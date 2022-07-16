@@ -21,7 +21,7 @@ function App() {
           <Route exact path='/faq' element={<Faq/>}></Route>
           <Route exact path='/paket-bimbingan' element={<PaketBimbingan/>}/>
           <Route exact path='/kelas-rekomendasi' element={<KelasRekomendasi/>}/>
-          <Route exact path='/review-pendaftaran/:id' element={<ReviewPendaftaran/>}/>
+          <Route exact path='/review-pendaftaran' element={<ReviewPendaftaran/>}/>
           <Route exact path='/rincian-pembayaran' element={<RincianPembayaran/>}/>
           <Route exact path='/pembayaran-berhasil' element={<PembayaranBerhasil/>}></Route>
           <Route path='*' />

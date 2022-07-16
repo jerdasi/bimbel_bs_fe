@@ -1,9 +1,18 @@
-import React from 'react'
+import axios from 'axios'
+import React, {useState, useEffect} from 'react'
 import { BsSearch } from 'react-icons/bs'
+import { useLocation } from 'react-router-dom'
 import insignia from '../../Assets/Images/insignia.png'
 import logo from '../../Assets/Images/logo.svg'
 
 function ReviewPendaftaran() {
+  const state = useLocation()
+  const {id, id_paket } = state;
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API}/peserta-didik/`)  
+    console.log(id, id_paket)
+  })
   return (
     <div className='p-16'>
 
@@ -59,7 +68,7 @@ function ReviewPendaftaran() {
       </div>
 
       <div>
-        <h3>Kelas yang <span className='text-merah-bs'>dipilih</span></h3>
+        <h3>Paket yang <span className='text-merah-bs'>dipilih</span></h3>
         <div className='p-2 mr-14 rounded-md border-red-600 border-1 md:w-1/3 md:mr-14 py-14' >
           <div className='flex justify-between md:pt-14 pb-6'>
             <img src={logo} className='px-2' /> <h2 className='text-lg md:text-xl md:px-2'>Paket Bimbingan Regular</h2>
