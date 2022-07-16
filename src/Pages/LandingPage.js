@@ -66,9 +66,9 @@ function LandingPage() {
 
               {whyusjson.map((item, index) => {
                 return (
-                  <div className='border-2 border-red-500 rounded-md my-2  bg-merah-bs items-center'>
-                    <div className='py-1 px-2 text-white'>
-                      <h3 className='text-lg'>{item.title}</h3></div>
+                  <div className='w-full md:w-1/2 border-2 border-red-500 rounded-md my-2  bg-merah-bs items-center '>
+                    <div className='py-1 px-2 text-white '>
+                      <h3 className='text-lg md:text-sm'>{item.title}</h3></div>
                     <div className='bg-white p-2 rounded-sm'>
                       {item.res}
                     </div>
@@ -86,10 +86,10 @@ function LandingPage() {
       <div className='px-10 py-16 mx-auto bg-antique'>
         <h1>Kisah Sukses </h1>
         <p>Bergabung dengan Beta Smart bukan pilihan yang salah. Ikuti jejak mereka!</p>
-        <div>
+        <div className='md:flex'>
           {testimoni.map((item, index) => {
             return (
-              <div className='lg:w-1/2 bg-white p-4 my-2 items-center text-center justify-center rounded-xl'>
+              <div className='w-full lg:w-1/2 bg-white p-4 my-2 items-center text-center justify-center rounded-xl mr-2'>
                 <img src={item.image} className='mx-auto' />
                 <h1 className='py-4'>{item.nama} - {item.paket}</h1>
                 <p className='text-left'>{item.ulasan}</p>
