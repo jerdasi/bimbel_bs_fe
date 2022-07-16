@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import logo from '../../Assets/Images/logo.svg'
 
 function RincianPembayaran() {
+    const { state } = useLocation()
+    const {id_paket, id_grup, redirectUrl} = state
+
     return (
         <div>
             <div className='p-16 pr-0 bg-white'>
@@ -33,7 +37,11 @@ function RincianPembayaran() {
 
                         </div>
                         <div className='pt-16 mt-10 mr-16'>
-                            <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-sm rounded-md my-2 '>Bayar Sekarang</button>
+                            <button 
+                            onClick={() => {
+                                window.open(redirectUrl)
+                            }}
+                            className='p-2 w-full bg-merah-bs text-white font-bold md:text-sm rounded-md my-2 '>Bayar Sekarang</button>
                         </div>
 
                     </div>
