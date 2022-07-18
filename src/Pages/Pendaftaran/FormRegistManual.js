@@ -3,6 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import validation from '../../Components/validation'
 import logo from '../../Assets/Images/logo.svg'
 import regist from '../../Assets/Images/register.png'
 import { TbLocation } from 'react-icons/tb'
@@ -12,6 +13,7 @@ function FormRegistManual(props) {
     const [paket, setPaket] = useState([])
     const navigate = useNavigate()
     const [idKelas, setIdKelas] = useState('')
+    const [errors, setErrors] = useState({})
 
 
     /*const [register, handleSubmit] = useForm()
@@ -36,6 +38,8 @@ function FormRegistManual(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setErrors(validation(formValues))
+        
         const config = {
             headers: { 'Content-Type': 'multipart/form-data' }
         }
@@ -58,6 +62,7 @@ function FormRegistManual(props) {
 
     }
 
+    
 
 
     //const handleSubmit = (e) => {
@@ -77,51 +82,54 @@ function FormRegistManual(props) {
     }, [])
     return (
         <>
-            <h2 className='font-bold'>Kelas <span className='text-merah-bs'>{props.title}</span></h2>
-            <p>Bimbingan Belajar bagi anak {props.title} bertujuan untuk membantu siswa {props.akro} dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
+            <h2 className='font-bold text-md md:text-2xl pt-4'>Kelas <span className='text-merah-bs'>{props.title}</span></h2>
+            <p className='text-sm'>Bimbingan Belajar bagi anak {props.title} bertujuan untuk membantu siswa {props.akro} dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
             <div>
                 <div>
-                    <h3 className='font-bold'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
-                    <ul className='w-full flex overflow-x-auto'>
+                    <h3 className='font-bold text-md md:text-2xl'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
+                    <div className='w-full flex overflow-x-auto overflow-y-auto'>
                         {paket.filter(kelas => kelas.id_jenjang === props.kelas).map((paketKelas) => {
                             return (
-                                <li key={paketKelas.id}
+                                <div key={paketKelas.id}
                                     onClick={()=>{setIdKelas(paketKelas.id)}}
-                                    className='w-full px-8 border-2 rounded-md border-red-600 mx-2 cursor-pointer hover:scale-105 ease-in-out duration-300'>
-                                    <div className='flex justify-between py-2'>
+                                    className=' w-full md:w-1/3  border-2 rounded-md border-red-600 px-2 cursor-pointer hover:scale-105 ease-in-out duration-300 py-2 mx-1'>
+                                    <div className='flex justify-between py-2 gap-2'>
                                         <img src={logo} className='w-[60px]' />
                                         <h4 className='text-sm font-bold py-2'> {paketKelas.nama_paket} </h4>
                                     </div>
 
-                                    <p> {paketKelas.deskripsi} </p>
-                                    <ul className='text-sm'>
-                                        <li>{paketKelas.deskripsi}</li>
-                                        <li>{paketKelas.jumlah_pertemuan}</li>
-                                        <li>{paketKelas.harga}</li>
+                                    
+                                    <ul className='w-full text-sm md:h-[150px] '>
+                                        <li className='list-disc'>{paketKelas.deskripsi}</li>
+                                        <li className='list-disc'>Pertemuan {paketKelas.jumlah_pertemuan}x/bulan</li>
+                                        <li className='list-disc'>{paketKelas.harga}</li>
+                                        <li className='list-disc'>Biaya Pendaftaran 1x untuk selamanya</li>
                                     </ul>
-                                    <button className='w-full flex mt-1 p-2  px-6 justify-between items-center text-white font-bold bg-merah-bs rounded-md'><TbLocation />Pilih Kelas Ini</button>
-                                </li>
+                                    <button className='w-full flex  p-2  px-6 justify-between items-center text-white  bg-merah-bs rounded-md '><TbLocation /><span className='mx-auto'>Pilih Kelas Ini</span></button>
+                                </div>
                             )
                         })}
 
-                    </ul>
+                    </div>
 
                 </div>
 
 
-                <h3>Informasi Umum</h3>
+                <h3 className='font-bold text-2xl pt-4'>Informasi Umum</h3>
             </div>
 
             <form method='POST' onSubmit={handleSubmit}>
-                <div className='mx-auto w-full flex justify-between' >
+                <div className='mx-auto w-full flex justify-between text-sm md:text-lg' >
                     <div className='w-full'>
                         <div>
                             <label className='text-md font-light py-1'>Nama Lengkap</label>
                             <br />
                             <input
                                 type='text'
+                                name='nama'
                                 placeholder='Nama Lengkap Peserta Didik'
                                 value={formValues.nama}
+                                required
                                 onChange={(e) => {
                                     setFormValues({
                                         ...formValues,
@@ -129,6 +137,8 @@ function FormRegistManual(props) {
                                     })
                                 }}
                                 className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' ></input>
+                                {errors.nama && <p className='text-merah-bs'>{errors.nama}</p>}
+                                
                         </div>
                         <div className='w-full flex justify-start'>
                             <div className='w-1/2  mr-2'>
@@ -136,8 +146,10 @@ function FormRegistManual(props) {
                                 <br />
                                 <input
                                     type='text'
+                                    name='tempat'
                                     placeholder='Tempat Lahir Peserta Didik'
                                     value={formValues.tempat}
+                                    required
                                     onChange={(e) => {
                                         setFormValues({
                                             ...formValues,
@@ -166,6 +178,8 @@ function FormRegistManual(props) {
                                             ).format("yyyy-MM-DD"),
                                         })
                                     }
+                                    required
+                                    className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light'
                                 />
                             </div>
                         </div>
@@ -174,8 +188,10 @@ function FormRegistManual(props) {
                             <br />
                             <input
                                 type='text'
+                                name='alamat'
                                 placeholder='Alamat Peserta Didik'
                                 value={formValues.alamat}
+                                required
                                 onChange={(e) => {
                                     setFormValues({
                                         ...formValues,
@@ -189,8 +205,10 @@ function FormRegistManual(props) {
                             <br />
                             <input
                                 type='text'
+                                name='asal-sekolah'
                                 placeholder='Asal Sekolah Peserta Didik'
                                 value={formValues.asal_sekolah}
+                                required
                                 onChange={(e) => {
                                     setFormValues({
                                         ...formValues,
@@ -205,8 +223,10 @@ function FormRegistManual(props) {
                                 <br />
                                 <input
                                     type='text'
+                                    name='nama_ayah'
                                     placeholder='Nama Ayah Peserta Didik'
                                     value={formValues.nama_ayah}
+                                    required
                                     onChange={(e) => {
                                         setFormValues({
                                             ...formValues,
@@ -220,8 +240,10 @@ function FormRegistManual(props) {
                                 <br />
                                 <input
                                     type='text'
+                                    name='nama_ibu'
                                     placeholder='Nama Ibu'
                                     value={formValues.nama_ibu}
+                                    required
                                     onChange={(e) => {
                                         setFormValues({
                                             ...formValues,
@@ -236,8 +258,10 @@ function FormRegistManual(props) {
                             <br />
                             <input
                                 type='text'
+                                name='telepon_anak'
                                 placeholder='Asal Sekolah Peserta Didik'
                                 value={formValues.telepon_anak}
+                                required
                                 onChange={(e) => {
                                     setFormValues({
                                         ...formValues,
@@ -252,8 +276,10 @@ function FormRegistManual(props) {
                                 <br />
                                 <input
                                     type='text'
+                                    name='telepon_ayah'
                                     placeholder='No Handphone Ayah Peserta Didik'
                                     value={formValues.telepon_ayah}
+                                    required
                                     onChange={(e) => {
                                         setFormValues({
                                             ...formValues,
@@ -267,8 +293,10 @@ function FormRegistManual(props) {
                                 <br />
                                 <input
                                     type='text'
+                                    name='telepon_ibu'
                                     placeholder='No Handphone Ibu Peserta Didik'
                                     value={formValues.telepon_ibu}
+                                    required
                                     onChange={(e) => {
                                         setFormValues({
                                             ...formValues,

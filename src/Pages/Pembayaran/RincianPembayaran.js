@@ -17,7 +17,7 @@ function RincianPembayaran() {
                 <div className='md:flex  '>
                     <div className='p-2 mr-14 rounded-md border-red-600 border-1 md:w-3/4 md:mr-14 py-14' >
                         <div className='flex justify-between md:pt-14 pb-6'>
-                            <img src={logo} className='px-2' /> <h2 className='text-lg md:text-2xl md:px-2'>Paket Bimbingan Regular</h2>
+                            <img src={logo} className='px-2' /> <h2 className='text-md md:text-lg md:px-2'>Paket Bimbingan Regular</h2>
                         </div>
 
                         <p className='p-2 text-sm'>Paket Bimbingan Kelas Semua Mata Pelajaran (Matematika, Bahasa Indonesia, Ilmu Pengetahuan Alam) dengan fasilitas :</p>

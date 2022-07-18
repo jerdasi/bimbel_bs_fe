@@ -16,9 +16,9 @@ function Faq() {
     }
 
   return (
-    <div className='bg-white '>
+    <div className='bg-white  '>
         
-        <div className='p-16 py-12 '>
+        <div className='p-10 py-12 '>
         <h1 className='px-2 mb-[-15px]'>Frequently Asked Question</h1>
             <div className='md:flex justify-between items-center py-16'>
                 
@@ -26,9 +26,9 @@ function Faq() {
                     {faq.map((item,index) => {
                         return(
                             <div key={index}>
-                                <div>
+                                <div >
                                     <div onClick={() => toggle(index)} className='flex bg-antique p-2 md:p-4 rounded-md justify-between items-center  m-2' >
-                                        <h3 className='text-lg md:text-xl'>{item.tanya}</h3>
+                                        <h3 className='text-sm md:text-xl'>{item.tanya}</h3>
                                         <p className='p-2'>
                                             {selected === index ? (
                                                 <div><BsFillArrowUpSquareFill size={30} color={`gray`}/></div>
@@ -41,7 +41,7 @@ function Faq() {
                                 <div>
                                     
                                         <div className={selected === index ? 'p-2 bg-white rounded-b-xl' : 'hidden max-h-0 mt-5 border-2'}>
-                                         <p>{item.jawab}</p>
+                                         <p className='text-sm md:text-md'>{item.jawab}</p>
                                          </div>
                                     
                                    

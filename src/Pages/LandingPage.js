@@ -14,8 +14,8 @@ function LandingPage() {
 
   useEffect(() => {
     axios
-        .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
-        .then((res) => setJenjang(res.data.data));
+      .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
+      .then((res) => setJenjang(res.data.data));
   })
 
   return (
@@ -39,21 +39,21 @@ function LandingPage() {
       <div className='px-10 py-16 mx-auto bg-antique' >
         <h1 className='font-bold text-3xl'>Daftar dan Mulai Belajar</h1>
         <p className='pb-2'>Pilih sendiri atau ikuti rekomendasi kami</p>
-        <div className=''>
-          <ul className='flex flex-row justify-start overflow-x-auto h-1/2'>
-            <li className='w-1/4 p-2 mx-1 md:p-4 md:w-[200px] text-center md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center'>
-              <img src={insignia} className='w-[90px] mx-auto pt-4'/>
-              <h4 className='text-sm mt-10' >Rekomendasi</h4>
-            </li>
+        <div className='w-full overflow-x-auto'>
+          <div className='w-full flex flex-row justify-start overflow-x-auto h-1/2'>
+            <div className='w-1/2  p-2 mx-1 md:p-4 md:w-[200px] text-center  md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center '>
+              <img src={insignia} className='w-[90px] mx-auto pt-4' />
+              <h4 className='text-sm bottom-0 mt-10 w-full'>Rekomendasi</h4>
+            </div>
             {jenjang.map((item) => {
               return (
-                <li key={item.id} className='w-1/4  px-4 py-2 md:p-4 md:w-[200px] text-center mx-1 md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center '>
+                <div key={item.id} className='w-1/2  p-2 mx-1 md:p-4 md:w-[200px] text-center  md:mx-0 border-2 border-gray-900 rounded-md items-center cursor-pointer hover:scale-105 ease-in-out duration-300 justify-center '>
                   <img src={book} className='w-[90px] mx-auto pt-4' />
                   <h4 className='text-sm bottom-0 mt-10 w-full'>{item.akronim}</h4>
-                </li>
+                </div>
               )
             })}
-          </ul>
+          </div>
         </div>
       </div>
       <div className='bg-white px-10 py-16 mx-auto'>
@@ -62,23 +62,37 @@ function LandingPage() {
           <img src={whyus}></img>
           <div>
             <p className='text-center'>Beta Smart sebagai penyedia jasa bimbingan belajar, menawarkan beberapa keuntungan yang dapat membantu anak didik dapat belajar dengan baik dan menjadi siswa berprestasi di sekolahnya</p>
-            <div className='flex flex-wrap'>
-
-              {whyusjson.map((item, index) => {
+            <div className='flex gap-2'>
+            <div className=''>
+              {whyusjson.filter(item => item.id < 4).map((item) => {
                 return (
-                  <div className='w-full md:w-1/2 border-2 border-red-500 rounded-md my-2  bg-merah-bs items-center '>
-                    <div className='py-1 px-2 text-white '>
-                      <h3 className='text-lg md:text-sm'>{item.title}</h3></div>
-                    <div className='bg-white p-2 rounded-sm'>
+                  <div className='w-full border-2 border-red-500 rounded-md my-2  bg-merah-bs items-center gap-2'>
+                    <div className='py-1 px-2 text-white'>
+                      <h3 className='text-sm md:text-sm'>{item.title}</h3></div>
+                    <div className='bg-white p-2 rounded-sm h-[210px] md:h-[150px] text-sm'>
                       {item.res}
                     </div>
                   </div>
-
                 )
               })}
             </div>
-            <div>
+            <div className=''>
+              {whyusjson.filter(item => item.id > 3).map((item) => {
+                return (
+                  <div className='w-full border-2 border-red-500 rounded-md my-2  bg-merah-bs items-center '>
+                    <div className='py-1 px-2 text-white '>
+                      <h3 className='text-sm md:text-sm'>{item.title}</h3></div>
+                    <div className='bg-white p-2 rounded-sm h-[210px] md:h-[150px] text-sm'>
+                      {item.res}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
+            </div>
+            
+
+
           </div>
         </div>
       </div>
@@ -87,6 +101,7 @@ function LandingPage() {
         <h1>Kisah Sukses </h1>
         <p>Bergabung dengan Beta Smart bukan pilihan yang salah. Ikuti jejak mereka!</p>
         <div className='md:flex'>
+
           {testimoni.map((item, index) => {
             return (
               <div className='w-full lg:w-1/2 bg-white p-4 my-2 items-center text-center justify-center rounded-xl mr-2'>
