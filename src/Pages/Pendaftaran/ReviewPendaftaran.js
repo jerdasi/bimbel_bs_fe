@@ -40,6 +40,7 @@ function ReviewPendaftaran() {
     axios
       .get(`${process.env.REACT_APP_API}/paket-bimbingan/${id_paket}`)
       .then((res) => {
+        console.log(res.data.data.harga)
         setPendaftaran({ ...pendaftaran, total_pembayaran: res.data.data.harga + pendaftaran.total_pembayaran })
         setPaket(res.data.data)
       })
@@ -58,7 +59,7 @@ function ReviewPendaftaran() {
       <h3 className='text-3xl font-bold py-4'>Informasi Calon Peserta Didik</h3>
       <div className='w-full md:flex justify-start'>
         <div className='w-1/3 p-2 border-2 border-red-600 rounded-md max-h-72'>
-          <img src={`${process.env.REACT_APP_API}/${review.foto}`} className='p-2 md:w-[250px] md:h-[210px]  mx-auto' />
+          <img src={`${process.env.REACT_APP_API}/${review.foto}`} className='p-2 md:w-[210px] md:h-[220px]  mx-auto' />
           <button className='flex  p-2 w-full bg-merah-bs text-white md:text-lg rounded-md my-2'><BsSearch size={20} className='my-1' /> <span className='mx-auto'>Preview</span></button>
 
         </div>
@@ -114,36 +115,38 @@ function ReviewPendaftaran() {
           <ul className=''>
             <li className='list-disc'>Kapasitas Kelas Hingga 20 Orang/pertemuan</li>
             <li className='list-disc'>Harga Terjangkau hanya Rp. {paket.harga},-/bulan</li>
-            <li className='list-disc'>Pertemuan {paket.jumlah_pertemuan}x/bulan</li>
+            <li className='list-disc'>Pertemuan {paket.jumlah_pertemuan}x/minggu</li>
             <li className='list-disc'>Biaya Pendaftaran 1x untuk selamanya</li>
           </ul>
         </div>
 
         <div className='py-6'>
           <h2 className='font-bold text-xl md:text-2xl'>Pilihan <span className='text-merah-bs'>Grup Bimbingan </span></h2>
-          {grup.filter(item => item.id_paket === id_paket).map((item) => {
-            return (
-              <div
-                key={item.id}
-                onClick={() => {
-                  setPendaftaran({
-                    ...pendaftaran,
-                    id_grup: item.id
-                  })
+          <div className='flex gap-2'>
+            {grup.filter(item => item.id_paket === id_paket).map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => {
+                    setPendaftaran({
+                      ...pendaftaran,
+                      id_grup: item.id
+                    })
 
-                  console.log(item.id)
-                }}
-                className='rounded-md border-2 border-red-600 p-4 w-full md:w-1/3 cursor-pointer'>
-                <div className='flex justify-between'>
-                  <img src={logo} /> <h2 className='text-sm md:text-lg mx-auto'>Grup Bimbingan</h2>
+                    console.log(item.id)
+                  }}
+                  className='rounded-md border-2 border-red-600 p-4 w-full md:w-1/3 cursor-pointer'>
+                  <div className='flex justify-between'>
+                    <img src={logo} /> <h2 className='text-sm md:text-lg mx-auto'>Grup Bimbingan</h2>
+                  </div>
+                  <div className='block py-2'><p className='px-1'>Nama Grup : {item.nama_grup}
+                    <p> Kuota : {item.kuota}</p></p>
+                  </div>
                 </div>
-                <div className='block py-2'><p className='px-1'>Nama Grup : {item.nama_grup}
-                  <p> Kuota : {item.kuota}</p></p>
-                </div>
-              </div>
-            )
+              )
 
-          })}
+            })}
+          </div>
 
         </div>
 

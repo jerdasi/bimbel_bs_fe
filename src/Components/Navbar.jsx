@@ -21,7 +21,7 @@ function Navbar() {
                 <a href='/' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>Testimoni</li></a>
                 <a href='/paket-bimbingan' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>Paket Bimbingan</li></a>
                 <a href='/faq' className='text-black no-underline'><li className='p-4 hover:text-merah-bs hover:font-bold'>FAQ</li></a>
-                <li><button className='py-2 px-4 mt-3 bg-merah-bs text-white rounded-lg font-bold'>Daftar</button></li>
+                {/* <li><button className='py-2 px-4 mt-3 bg-merah-bs text-white rounded-lg font-bold'>Daftar</button></li> */}
             </ul>
             <div onClick={handleNav} className='block md:hidden'>
                 {!nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}

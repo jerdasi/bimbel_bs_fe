@@ -5,7 +5,20 @@ import logo from '../../Assets/Images/logo.svg'
 
 function RincianPembayaran() {
     const { state } = useLocation()
-    const {id_paket, id_grup, redirectUrl} = state
+    const { id_paket, id_grup, redirectUrl} = state
+    const [rincian, setRincian] = useState({})
+    const [pembayaran, setPembayaran] = useState({})
+
+    useEffect(() => {
+        axios   
+            .get(`${process.env.REACT_APP_API}/paket-bimbingan/${id_paket}`)
+            .then((res) => setRincian(res.data.data))
+        
+        axios
+            .get(`${process.env.REACT_APP_API}/pendaftaran`)
+            .then((res) => setPembayaran(res.data.data))
+
+    })
 
     return (
         <div>
@@ -20,20 +33,20 @@ function RincianPembayaran() {
                             <img src={logo} className='px-2' /> <h2 className='text-md md:text-lg md:px-2'>Paket Bimbingan Regular</h2>
                         </div>
 
-                        <p className='p-2 text-sm'>Paket Bimbingan Kelas Semua Mata Pelajaran (Matematika, Bahasa Indonesia, Ilmu Pengetahuan Alam) dengan fasilitas :</p>
+                        <p className='p-2 text-sm'>{rincian.nama_paket}</p>
                         <ul className=''>
                             <li className='list-disc'>Kapasitas Kelas Hingga 20 Orang/pertemuan</li>
-                            <li className='list-disc'>Harga Terjangkau hanya Rp. 400.000,-/bulan</li>
-                            <li className='list-disc'>Pertemuan 12x/bulan</li>
+                            <li className='list-disc'>Harga Terjangkau hanya Rp. {rincian.harga},-/bulan</li>
+                            <li className='list-disc'>Pertemuan {rincian.jumlah_pertemuan}x/minggu</li>
                             <li className='list-disc'>Biaya Pendaftaran 1x untuk selamanya</li>
                         </ul>
                     </div>
                     <div className='pt-4 w-full'>
                         <div className='mb-16 pb-10'>
                             <h4 className='text-xl md:text-xl'>Pembayaran : 1 Bulan</h4>
-                            <h4 className='text-xl md:text-xl'>Biaya Paket Bimbingan/Bulan : Rp. 400.000,-</h4>
-                            <h4 className='text-xl md:text-xl'>Biaya Pendaftaran : Rp. 200.000,-</h4>
-                            <h4 className='text-xl md:text-xl'>Total : Rp. 600.000,-</h4>
+                            <h4 className='text-xl md:text-xl'>Biaya Paket Bimbingan/Bulan : Rp. {rincian.harga},-</h4>
+                            <h4 className='text-xl md:text-xl'>Biaya Pendaftaran : Rp. 200000,-</h4>
+                            <h4 className='text-xl md:text-xl'>Total : Rp. {rincian.harga + 200000} ,-</h4>
 
                         </div>
                         <div className='pt-16 mt-10 mr-16'>

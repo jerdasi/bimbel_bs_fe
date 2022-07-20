@@ -39,7 +39,7 @@ function FormRegistManual(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         setErrors(validation(formValues))
-        
+
         const config = {
             headers: { 'Content-Type': 'multipart/form-data' }
         }
@@ -56,13 +56,13 @@ function FormRegistManual(props) {
                 config)
             .then((res) => {
                 // console.log(res.data.data.id)
-                console.log({ id: res.data.data.id, id_paket: idKelas})
-                navigate(`/review-pendaftaran`, { state: { id: res.data.data.id, id_paket: idKelas} })
+                console.log({ id: res.data.data.id, id_paket: idKelas })
+                navigate(`/review-pendaftaran`, { state: { id: res.data.data.id, id_paket: idKelas } })
             }).catch(err => console.log(err.message))
 
     }
 
-    
+
 
 
     //const handleSubmit = (e) => {
@@ -91,21 +91,23 @@ function FormRegistManual(props) {
                         {paket.filter(kelas => kelas.id_jenjang === props.kelas).map((paketKelas) => {
                             return (
                                 <div key={paketKelas.id}
-                                    onClick={()=>{setIdKelas(paketKelas.id)}}
+
                                     className=' w-full md:w-1/3  border-2 rounded-md border-red-600 px-2 cursor-pointer hover:scale-105 ease-in-out duration-300 py-2 mx-1'>
                                     <div className='flex justify-between py-2 gap-2'>
                                         <img src={logo} className='w-[60px]' />
                                         <h4 className='text-sm font-bold py-2'> {paketKelas.nama_paket} </h4>
                                     </div>
 
-                                    
+
                                     <ul className='w-full text-sm md:h-[150px] '>
                                         <li className='list-disc'>{paketKelas.deskripsi}</li>
                                         <li className='list-disc'>Pertemuan {paketKelas.jumlah_pertemuan}x/bulan</li>
                                         <li className='list-disc'>{paketKelas.harga}</li>
                                         <li className='list-disc'>Biaya Pendaftaran 1x untuk selamanya</li>
                                     </ul>
-                                    <button className='w-full flex  p-2  px-6 justify-between items-center text-white  bg-merah-bs rounded-md '><TbLocation /><span className='mx-auto'>Pilih Kelas Ini</span></button>
+                                    <button
+                                        onClick={() => { setIdKelas(paketKelas.id)}}
+                                        className={idKelas ? 'w-full flex  p-2  px-6 justify-between items-center text-white  bg-merah-bs rounded-md ' : 'w-full flex  p-2  px-6 justify-between items-center text-black  border-2 border-red-600 rounded-md  '}><TbLocation /><span className='mx-auto'>Pilih Kelas Ini</span></button>
                                 </div>
                             )
                         })}
@@ -137,8 +139,8 @@ function FormRegistManual(props) {
                                     })
                                 }}
                                 className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' ></input>
-                                {errors.nama && <p className='text-merah-bs'>{errors.nama}</p>}
-                                
+                            {errors.nama && <p className='text-merah-bs'>{errors.nama}</p>}
+
                         </div>
                         <div className='w-full flex justify-start'>
                             <div className='w-1/2  mr-2'>
