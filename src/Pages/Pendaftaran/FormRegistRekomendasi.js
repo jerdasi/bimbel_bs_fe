@@ -3,7 +3,7 @@ import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import validation from '../../Components/validation'
-import _ from 'lodash'
+import _, { set } from 'lodash'
 import register from '../../Assets/Images/register.png'
 
 function FormRegistRekomendasi() {
@@ -12,7 +12,9 @@ function FormRegistRekomendasi() {
     const [errors, setErrors] = useState({})
     const [jenjang, setJenjang] = useState([])
     const [paket, setPaket] = useState([])
+    const [rekomendasi, setRekomendasi] = useState(0)
     const [filterJenjang, setFilterJenjang] = useState(0)
+    const [idJenjang, setIdJenjang] = useState('')
     const [nilai, setNilai] = useState([
         { matematika: 0, indo: 0, ipa: 0 },
         { matematika: 0, indo: 0, ipa: 0 }
@@ -28,9 +30,9 @@ function FormRegistRekomendasi() {
     const checkNilai = () => {
         let all_nilai = nilai.map((item) => {
             let hasil =
-                (parseInt(item.matematika)) +
-                (parseInt(item.indo)) +
-                (parseInt(item.ipa)) / 3
+                (parseInt(item.matematika) +
+                parseInt(item.indo) +
+                parseInt(item.ipa)) / 3
 
             return hasil
         })
@@ -110,6 +112,7 @@ function FormRegistRekomendasi() {
 
         check = check.map((item) => item / penjumlahan_bobot_atribut)
         console.log(check)
+        console.log(filterJenjang)
 
         let all_alternatif = paket
             .filter((item) => item.id_jenjang == filterJenjang)
@@ -144,13 +147,14 @@ function FormRegistRekomendasi() {
             return previousValue + currentValue
         })
         hasil = hasil.map((item) => item / penjumlahan_vektor_s)
-        console.log(
-            paket.filter((item) => item.id_jenjang == filterJenjang)[
+       
+        setShowLoad(false)
+
+        return paket.filter((item) => item.id_jenjang == filterJenjang)[
             _.indexOf(hasil, _.max(hasil))
             ]
-        )
 
-        setShowLoad(false)
+        
 
     }
 
@@ -183,9 +187,22 @@ function FormRegistRekomendasi() {
             form_data.append(key, formValues[key])
 
         }
+        getRekomendasi()
+        setRekomendasi(getRekomendasi().id)
+        setIdJenjang(filterJenjang)
+        console.log(getRekomendasi())
+        
+        axios
+            .post(`${process.env.REACT_APP_API}/peserta-didik`,
+                form_data,
+                config)
+            .then((res) => {
+                // console.log(res.data.data.id)
+                navigate(`/kelas-rekomendasi`, { state: { id_jenjang: filterJenjang ,id_paket: getRekomendasi().id } })
+            }).catch(err => console.log(err.message))
 
         
-        console.log(form_data)
+        // console.log(form_data)
 
     }
 
@@ -197,6 +214,8 @@ function FormRegistRekomendasi() {
         axios
             .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
             .then((res) => setJenjang(res.data.data));
+        
+            setFormValues({ ...formValues, id_jenjang: filterJenjang })
     }, []);
 
     return (
@@ -234,7 +253,7 @@ function FormRegistRekomendasi() {
                             <input
                                 type='text'
                                 name='tempat'
-                                id='tempat_siswa'
+                                id='tempat'
                                 placeholder='Tempat Tanggal Lahir Peserta Didik'
                                 required
                                 value={formValues.tempat}
@@ -256,6 +275,13 @@ function FormRegistRekomendasi() {
                                 value={moment(
                                     formValues.tanggal_lahir
                                 ).format("yyyy-MM-DD")}
+                                onChange={(e) =>
+                                    setFormValues({
+                                        ...formValues,
+                                        tanggal_lahir: moment(
+                                            e.target.value
+                                        ).format("yyyy-MM-DD"),
+                                    })}
                                 id='tanggal_siswa'
                                 required
                                 className='w-full md:w-1/2 p-2 border-1 rounded-md text-sm font-light'
@@ -404,7 +430,11 @@ function FormRegistRekomendasi() {
                                 name=""
                                 className="p-2 border border-abu-bs rounded-md text-sm "
                                 onChange={(e) => {
-                                    setFilterJenjang(parseInt(e.target.value));
+                                    setFilterJenjang(parseFloat(e.target.value))
+                                    // setFormValues({
+                                    //     ...formValues,
+                                    //     id_jenjang:parseInt(e.target.value)
+                                    // })
                                 }}
                             >
                                 {jenjang.map((item) => (
@@ -608,7 +638,7 @@ function FormRegistRekomendasi() {
                     </label>
                 </div>
                 <div>
-                    <button onClick={getRekomendasi} className='p-4'> berikan rekomendasi</button>
+                    {/* <button onClick={getRekomendasi} className='p-4'> berikan rekomendasi</button> */}
                     <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-lg rounded-md my-2'>Daftar</button>
                 </div>
             </div>

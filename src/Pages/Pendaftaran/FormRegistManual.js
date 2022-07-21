@@ -48,7 +48,6 @@ function FormRegistManual(props) {
         for (let key in formValues) {
             console.log(key, formValues[key])
             form_data.append(key, formValues[key])
-
         }
         axios
             .post(`${process.env.REACT_APP_API}/peserta-didik`,
