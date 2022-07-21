@@ -86,13 +86,13 @@ function FormRegistManual(props) {
             <p className='text-sm'>Bimbingan Belajar bagi anak {props.title} bertujuan untuk membantu siswa {props.akro} dapat belajar dengan efektif dan efisien, mencapai perkembangan optimal dan mengembangkan kebiasaan belajar yang baik dalam menguasai pengetahuan, keterampilan serta menyiapkan untuk melanjutkan pendidikan pada tingkat yang lebih tinggi. Dengan mengikuti Bimbingan Kelas ini, anak didik akan diajarkan metode / cara yang cepat, efisien dalam menyelesaikan soal - soal yang ada.</p>
             <div>
                 <div>
-                    <h3 className='font-bold text-md md:text-2xl'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
+                    <h3 className='font-bold text-md md:text-2xl pt-4 pb-2'>Pilihan <span className='text-merah-bs '>Paket Bimbingan Belajar</span></h3>
                     <div className='w-full flex overflow-x-auto overflow-y-auto'>
                         {paket.filter(kelas => kelas.id_jenjang === props.kelas).map((paketKelas) => {
                             return (
                                 <div key={paketKelas.id}
 
-                                    className=' w-full md:w-1/3  border-2 rounded-md border-red-600 px-2 cursor-pointer hover:scale-105 ease-in-out duration-300 py-2 mx-1'>
+                                    className=' w-full md:w-1/3  border-2 rounded-md border-red-600 px-2 cursor-pointer hover:scale-90 ease-in-out duration-300 py-2 mx-1'>
                                     <div className='flex justify-between py-2 gap-2'>
                                         <img src={logo} className='w-[60px]' />
                                         <h4 className='text-sm font-bold py-2'> {paketKelas.nama_paket} </h4>
@@ -107,7 +107,7 @@ function FormRegistManual(props) {
                                     </ul>
                                     <button
                                         onClick={() => { setIdKelas(paketKelas.id)}}
-                                        className={idKelas ? 'w-full flex  p-2  px-6 justify-between items-center text-white  bg-merah-bs rounded-md ' : 'w-full flex  p-2  px-6 justify-between items-center text-black  border-2 border-red-600 rounded-md  '}><TbLocation /><span className='mx-auto'>Pilih Kelas Ini</span></button>
+                                        className={['w-full flex  p-2  px-6 justify-between items-center border-red-600 border-2 rounded-lg', idKelas === paketKelas.id ? 'bg-merah-bs text-white' : 'bg-white text-black'].join(" ")}><TbLocation /><span className='mx-auto'>Pilih Paket Ini</span></button>
                                 </div>
                             )
                         })}
@@ -138,7 +138,7 @@ function FormRegistManual(props) {
                                         nama: e.target.value
                                     })
                                 }}
-                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light hover:border-red-500' ></input>
+                                className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light ' ></input>
                             {errors.nama && <p className='text-merah-bs'>{errors.nama}</p>}
 
                         </div>

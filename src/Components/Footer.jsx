@@ -7,7 +7,7 @@ import {TbLocation} from 'react-icons/tb'
 function Footer() {
     
   return (
-    <div className='w-full bg-white p-4 mx-auto md:px-16 py-4'>
+    <div className='w-full bg-white  mx-auto px-16 py-4'>
         <div className='w-full md:flex justify-between py-4 h-24'>
             <img src={logo} className='hidden md:flex'/>
             <div className=''>

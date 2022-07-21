@@ -1,11 +1,13 @@
 import axios from 'axios'
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
+import swal from 'sweetalert';
 import { set } from 'react-hook-form'
 import { BsSearch } from 'react-icons/bs'
 import { useLocation, useNavigate } from 'react-router-dom'
 import insignia from '../../Assets/Images/insignia.png'
 import logo from '../../Assets/Images/logo.svg'
+import { TbLocation } from 'react-icons/tb'
 
 function ReviewPendaftaran() {
   const { state } = useLocation()
@@ -15,6 +17,7 @@ function ReviewPendaftaran() {
   const [grup, setGrup] = useState([])
   const [idGrup, setIdGrup] = useState('')
   const navigate = useNavigate()
+  const [cek, setCek] = useState('')
   const [pendaftaran, setPendaftaran] = useState({
     id_siswa: id,
     id_grup: 0,
@@ -24,12 +27,18 @@ function ReviewPendaftaran() {
 
   const handleDaftar = (e) => {
     e.preventDefault()
+    if (pendaftaran.id_grup === 0) {
+      swal("Tunggu dulu,", "Kamu belum pilih grup nih!", "info");
+    } else if (cek !== 'setuju') {
+      swal("Ets, bentar dong", "Kamu belum cek dan setuju nih!", "info")
+    } else {
+      axios
+        .post(`${process.env.REACT_APP_API}/pendaftaran/pendaftaran-midtrans`, pendaftaran)
+        .then((res) => {
+          navigate(`/rincian-pembayaran`, { state: { id_paket: id_paket, id_grup: idGrup, redirectUrl: res.data.data.redirectUrl } })
+        })
+    }
 
-    axios
-      .post(`${process.env.REACT_APP_API}/pendaftaran/pendaftaran-midtrans`, pendaftaran)
-      .then((res) => {
-        navigate(`/rincian-pembayaran`, { state: { id_paket: id_paket, id_grup: idGrup, redirectUrl: res.data.data.redirectUrl } })
-      })
   }
 
   useEffect(() => {
@@ -108,7 +117,7 @@ function ReviewPendaftaran() {
         <h3 className='font-bold py-2 text-xl md:text-2xl'>Paket yang <span className='text-merah-bs'>dipilih</span></h3>
         <div className='p-2 mr-14 rounded-md border-red-600 border-2 w-full md:w-1/3 md:mr-14 pb-14 h-[350px]' >
           <div className='flex justify-between md:pt-8 pb-6'>
-            <img src={logo} className='px-2' /> <h2 className='text-lg md:text-xl md:px-2 mx-auto'>{paket.nama_paket}</h2>
+            <img src={logo} className='px-2' /> <h2 className='text-md md:text-lg md:px-2 mx-auto'>{paket.nama_paket}</h2>
           </div>
 
           <p className='p-2 text-md'>{paket.deskripsi}</p>
@@ -127,14 +136,6 @@ function ReviewPendaftaran() {
               return (
                 <div
                   key={item.id}
-                  onClick={() => {
-                    setPendaftaran({
-                      ...pendaftaran,
-                      id_grup: item.id
-                    })
-
-                    console.log(item.id)
-                  }}
                   className='rounded-md border-2 border-red-600 p-4 w-full md:w-1/3 cursor-pointer'>
                   <div className='flex justify-between'>
                     <img src={logo} /> <h2 className='text-sm md:text-lg mx-auto'>Grup Bimbingan</h2>
@@ -142,6 +143,16 @@ function ReviewPendaftaran() {
                   <div className='block py-2'><p className='px-1'>Nama Grup : {item.nama_grup}
                     <p> Kuota : {item.kuota}</p></p>
                   </div>
+                  <button
+                    onClick={() => {
+                      setPendaftaran({
+                        ...pendaftaran,
+                        id_grup: item.id
+                      })
+  
+                      console.log(item.id)
+                    }}
+                    className={['w-full flex  p-2  px-6 justify-between items-center border-red-600 border-2 rounded-lg', item.id === pendaftaran.id_grup ? 'bg-merah-bs text-white' : 'bg-white text-black'].join(" ")}><TbLocation /><span className='mx-auto'>Pilih Gup Ini</span></button>
                 </div>
               )
 
@@ -151,7 +162,10 @@ function ReviewPendaftaran() {
         </div>
 
         <div>
-          <input type='checkbox' />Saya setuju untuk mengikuti segala aturan dan ketentuan yang berlaku di Bimbingan Belajar Beta Smart
+          <input type='checkbox'
+            name='setuju'
+            onChange={() => setCek('setuju')}
+          />Saya setuju untuk mengikuti segala aturan dan ketentuan yang berlaku di Bimbingan Belajar Beta Smart
           <div className='flex gap-2'>
             <button className='w-1/2  mt-1 p-2  px-6 justify-between items-center border-2 border-gray-600 font-bold rounded-md'>Kembali</button>
             <button

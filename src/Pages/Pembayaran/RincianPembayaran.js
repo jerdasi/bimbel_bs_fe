@@ -18,7 +18,7 @@ function RincianPembayaran() {
             .get(`${process.env.REACT_APP_API}/pendaftaran`)
             .then((res) => setPembayaran(res.data.data))
 
-    })
+    }, [])
 
     return (
         <div>
