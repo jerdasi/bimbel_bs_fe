@@ -1,9 +1,9 @@
 import axios from 'axios'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import validation from '../../Components/validation'
-import _, { set } from 'lodash'
+import _, {set} from 'lodash'
 import register from '../../Assets/Images/register.png'
 
 function FormRegistRekomendasi() {
@@ -16,8 +16,8 @@ function FormRegistRekomendasi() {
     const [filterJenjang, setFilterJenjang] = useState(0)
     const [idJenjang, setIdJenjang] = useState('')
     const [nilai, setNilai] = useState([
-        { matematika: 0, indo: 0, ipa: 0 },
-        { matematika: 0, indo: 0, ipa: 0 }
+        {matematika: 0, indo: 0, ipa: 0},
+        {matematika: 0, indo: 0, ipa: 0}
     ])
     const [ranking, setRanking] = useState({
         sem1: 0,
@@ -31,8 +31,8 @@ function FormRegistRekomendasi() {
         let all_nilai = nilai.map((item) => {
             let hasil =
                 (parseInt(item.matematika) +
-                parseInt(item.indo) +
-                parseInt(item.ipa)) / 3
+                    parseInt(item.indo) +
+                    parseInt(item.ipa)) / 3
 
             return hasil
         })
@@ -41,7 +41,9 @@ function FormRegistRekomendasi() {
             return 1
         } else if (check >= 80 && check < 90) {
             return 2
-        } else { return 3 }
+        } else {
+            return 3
+        }
     }
 
     const checkSyaratNilai = (check) => {
@@ -60,7 +62,9 @@ function FormRegistRekomendasi() {
             (ranking.sem2 <= 10 && ranking.sem2 >= 1)
         ) {
             return 1
-        } else { return 2 }
+        } else {
+            return 2
+        }
     }
 
     const checkFinansial = () => {
@@ -68,7 +72,9 @@ function FormRegistRekomendasi() {
             return 1
         } else if (finansial == 'biasa/standar') {
             return 2
-        } else { return 3 }
+        } else {
+            return 3
+        }
     }
 
     const checkKebutuhan = () => {
@@ -111,13 +117,10 @@ function FormRegistRekomendasi() {
         })
 
         check = check.map((item) => item / penjumlahan_bobot_atribut)
-        console.log(check)
-        console.log(filterJenjang)
 
         let all_alternatif = paket
             .filter((item) => item.id_jenjang == filterJenjang)
             .map((item) => {
-                console.log(item.harga)
                 return [
                     checkSyaratNilai(item.min_nilai),
                     checkRequireRanking(item.riwayat_ranking),
@@ -126,8 +129,6 @@ function FormRegistRekomendasi() {
                     item.nama_paket,
                 ]
             })
-
-        console.log(all_alternatif)
 
         let hasil = []
         for (let i = 0; i < all_alternatif.length; i++) {
@@ -147,14 +148,13 @@ function FormRegistRekomendasi() {
             return previousValue + currentValue
         })
         hasil = hasil.map((item) => item / penjumlahan_vektor_s)
-       
+
         setShowLoad(false)
 
         return paket.filter((item) => item.id_jenjang == filterJenjang)[
             _.indexOf(hasil, _.max(hasil))
             ]
 
-        
 
     }
 
@@ -178,14 +178,14 @@ function FormRegistRekomendasi() {
         setErrors(validation(formValues))
 
         const config = {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: {'Content-Type': 'multipart/form-data'}
         }
         let form_data = new FormData()
 
         for (let key in formValues) {
             //console.log(key, formValues[key])
             form_data.append(key, formValues[key])
-           
+
 
         }
         getRekomendasi()
@@ -193,19 +193,17 @@ function FormRegistRekomendasi() {
         setIdJenjang(filterJenjang)
         console.log(getRekomendasi())
         console.log(formValues.id_jenjang)
-        
-        
+
+
         axios
             .post(`${process.env.REACT_APP_API}/peserta-didik`,
                 form_data,
                 config)
             .then((res) => {
                 // console.log(res.data.data.id)
-                navigate(`/kelas-rekomendasi`, { state: { id_jenjang: filterJenjang ,id_paket: getRekomendasi().id } })
+                const { id } = getRekomendasi()
+                navigate(`/kelas-rekomendasi`, {state: {id: res.data.data.id, id_jenjang: filterJenjang, id_paket: id }})
             }).catch(err => console.log(err.message))
-
-        
-        // console.log(form_data)
 
     }
 
@@ -217,22 +215,24 @@ function FormRegistRekomendasi() {
         axios
             .get(`${process.env.REACT_APP_API}/jenjang-pendidikan`)
             .then((res) => setJenjang(res.data.data));
-        
-            setFormValues({ ...formValues, id_jenjang: filterJenjang })
+
+        setFormValues({...formValues, id_jenjang: filterJenjang})
     }, []);
 
     return (
         <form method='POST' onSubmit={handleSubmit}>
             <h2 className='font-bold'>Kelas <span className='text-merah-bs'>Rekomendasi</span></h2>
-            <p>Fitur ini dapat membantu anak anda untuk menemukan kelas yang cocok dengan kemampuan maupun kepribadiannya. Menemukan kelas yang tepat dapat mempermudah anak didik untuk menyerap pembelajaran di bimbingan dengan baik sehingga berguna dalam pembelajaran di sekolah nya.</p>
+            <p>Fitur ini dapat membantu anak anda untuk menemukan kelas yang cocok dengan kemampuan maupun
+                kepribadiannya. Menemukan kelas yang tepat dapat mempermudah anak didik untuk menyerap pembelajaran di
+                bimbingan dengan baik sehingga berguna dalam pembelajaran di sekolah nya.</p>
             <div>
 
                 <h3>Informasi Umum</h3>
-                <div className='mx-auto w-full flex justify-between' >
+                <div className='mx-auto w-full flex justify-between'>
                     <div className='w-full'>
                         <div>
                             <label className='text-md font-light py-1'>Nama Lengkap</label>
-                            <br />
+                            <br/>
                             <input
                                 type='text'
                                 name='nama'
@@ -246,14 +246,14 @@ function FormRegistRekomendasi() {
                                         nama: e.target.value
                                     })
                                 }}
-                                
+
                                 className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light '
 
                             ></input>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Tempat, Tanggal Lahir</label>
-                            <br />
+                            <br/>
                             <input
                                 type='text'
                                 name='tempat'
@@ -295,7 +295,7 @@ function FormRegistRekomendasi() {
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Alamat</label>
-                            <br />
+                            <br/>
                             <textarea
                                 type='text'
                                 id=''
@@ -315,7 +315,7 @@ function FormRegistRekomendasi() {
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>Asal Sekolah</label>
-                            <br />
+                            <br/>
                             <input
                                 type='text'
                                 name='asal_sekolah'
@@ -328,12 +328,12 @@ function FormRegistRekomendasi() {
                                     })
                                 }}
                                 placeholder='Asal Sekolah Peserta Didik'
-                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light' ></input>
+                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light'></input>
                         </div>
                         <div className='w-full flex justify-start'>
                             <div className='w-1/2  mr-2'>
                                 <label className='text-md font-light py-1'>Nama Ayah</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='text'
                                     name='nama_ayah'
@@ -350,7 +350,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2  '>
                                 <label className='text-md font-light py-1'>Nama Ibu</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='text'
                                     name='nama_ibu'
@@ -363,12 +363,12 @@ function FormRegistRekomendasi() {
                                             nama_ibu: e.target.value
                                         })
                                     }}
-                                    className='w-full  p-2 border-1 rounded-md text-sm font-light' ></input>
+                                    className='w-full  p-2 border-1 rounded-md text-sm font-light'></input>
                             </div>
                         </div>
                         <div>
                             <label className='text-md font-light py-1'>No. HP Anak</label>
-                            <br />
+                            <br/>
                             <input
                                 type='text'
                                 name='telepon_anak'
@@ -381,12 +381,12 @@ function FormRegistRekomendasi() {
                                     })
                                 }}
                                 placeholder='No Handphone Anak'
-                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light' ></input>
+                                className='w-full md:w-full p-2 border-1 rounded-md text-sm font-light'></input>
                         </div>
                         <div className='flex'>
                             <div className='w-1/2  mr-2'>
                                 <label className='text-md font-light py-1'>No. HP Ayah</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='text'
                                     name='telepon_ayah'
@@ -403,7 +403,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2 '>
                                 <label className='text-md font-light py-1'>No. HP Ibu</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='text'
                                     name='telepon_ibu'
@@ -421,7 +421,7 @@ function FormRegistRekomendasi() {
                         </div>
 
                     </div>
-                    <img src={register} className='hidden lg:flex lg:w-[40%] lg:h-[30%] lg:p-30 lg:m-14' />
+                    <img src={register} className='hidden lg:flex lg:w-[40%] lg:h-[30%] lg:p-30 lg:m-14'/>
                 </div>
 
                 <h3>Nilai Rapor</h3>
@@ -429,7 +429,7 @@ function FormRegistRekomendasi() {
                     <div className='w-full pr-2 '>
                         <div>
                             <label className='text-md font-light py-1'>Jenjang Pendidikan</label>
-                            <br />
+                            <br/>
                             <select
                                 name=""
                                 className="p-2 border border-abu-bs rounded-md text-sm "
@@ -459,7 +459,7 @@ function FormRegistRekomendasi() {
                         <div className='flex w-full gap-8'>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>Matematika</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     placeholder='Isi Dengan Angka'
@@ -472,7 +472,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>B. Indonesia</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     required
@@ -486,7 +486,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>IPA</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     placeholder='Isi Dengan Angka'
@@ -499,7 +499,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>Ranking</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     value={ranking.sem1}
@@ -518,7 +518,7 @@ function FormRegistRekomendasi() {
                         <div className='flex w-full gap-8'>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>Matematika</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     placeholder='Isi Dengan Angka'
@@ -531,7 +531,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>B. Indonesia</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     onChange={(e) => {
@@ -544,7 +544,7 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>IPA</label>
-                                <br />
+                                <br/>
                                 <input
                                     type='number'
                                     placeholder='Isi Dengan Angka'
@@ -557,17 +557,17 @@ function FormRegistRekomendasi() {
                             </div>
                             <div className='w-1/2'>
                                 <label className='text-md font-light py-1'>Ranking</label>
-                                <br />
-                                <input 
-                                type='number' 
-                                placeholder='Isi Dengan Angka'
-                                value={ranking.sem2}
-                                onChange={(e) =>
-                                    setRanking({
-                                        ...ranking,
-                                        sem2: parseInt(e.target.value),
-                                    })
-                                }
+                                <br/>
+                                <input
+                                    type='number'
+                                    placeholder='Isi Dengan Angka'
+                                    value={ranking.sem2}
+                                    onChange={(e) =>
+                                        setRanking({
+                                            ...ranking,
+                                            sem2: parseInt(e.target.value),
+                                        })
+                                    }
                                     className='w-full  p-2 border-1 rounded-md text-sm font-light'></input>
                             </div>
 
@@ -578,7 +578,7 @@ function FormRegistRekomendasi() {
                 </div>
                 <div>
                     <label className='text-md font-light py-1'>Upload Foto *Rapi dan Formal</label>
-                    <br />
+                    <br/>
                     <input
                         type='file'
                         placeholder='Pilih Salah Satu'
@@ -588,7 +588,7 @@ function FormRegistRekomendasi() {
                                 fotoPeserta: e.target.files[0],
                             })
                         }
-                        className='pt-2 pb-4 font-light' />
+                        className='pt-2 pb-4 font-light'/>
                 </div>
                 <p>Kemampuan Finansial</p>
                 <p>
@@ -643,7 +643,8 @@ function FormRegistRekomendasi() {
                 </div>
                 <div>
                     {/* <button onClick={getRekomendasi} className='p-4'> berikan rekomendasi</button> */}
-                    <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-lg rounded-md my-2'>Daftar</button>
+                    <button className='p-2 w-full bg-merah-bs text-white font-bold md:text-lg rounded-md my-2'>Daftar
+                    </button>
                 </div>
             </div>
         </form>
