@@ -183,14 +183,17 @@ function FormRegistRekomendasi() {
         let form_data = new FormData()
 
         for (let key in formValues) {
-            console.log(key, formValues[key])
+            //console.log(key, formValues[key])
             form_data.append(key, formValues[key])
+           
 
         }
         getRekomendasi()
         setRekomendasi(getRekomendasi().id)
         setIdJenjang(filterJenjang)
         console.log(getRekomendasi())
+        console.log(formValues.id_jenjang)
+        
         
         axios
             .post(`${process.env.REACT_APP_API}/peserta-didik`,
@@ -232,8 +235,8 @@ function FormRegistRekomendasi() {
                             <br />
                             <input
                                 type='text'
-                                name='nama_siswa'
-                                id='nama_siswa'
+                                name='nama'
+                                id='nama'
                                 placeholder='Nama Lengkap Peserta Didik'
                                 required
                                 value={formValues.nama}
@@ -243,6 +246,7 @@ function FormRegistRekomendasi() {
                                         nama: e.target.value
                                     })
                                 }}
+                                
                                 className='w-full md:w-full p-2 pr-8 border-1 rounded-md text-sm font-light '
 
                             ></input>
