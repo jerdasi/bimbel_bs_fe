@@ -7,12 +7,14 @@ import whyusjson from "../Components/json/whyus.json";
 // import testimoni from "../Components/json/testimoni.json";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import _ from "lodash";
 
 function LandingPage() {
     const [jenjang, setJenjang] = useState([]);
     const [testimoni, setTestimoni] = useState([]);
+    const [selected, setSelected] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -22,6 +24,10 @@ function LandingPage() {
             setTestimoni(res.data.data);
         });
     }, []);
+
+    const toPaketBimbingan = () => {
+        navigate("/paket-bimbingan");
+    };
 
     return (
         <>
@@ -78,7 +84,10 @@ function LandingPage() {
                 </p>
                 <div className="w-full overflow-x-auto h-56">
                     <div className="w-full h-[90%] flex flex-col flex-wrap gap-2 justify-start overflow-x-auto ">
-                        <div className="w-1/2 md:w-1/6 h-full border-2 text-center border-gray-900 rounded-md items-center cursor-pointer hover:scale-x-105 ease-in-out duration-300 justify-center bg-white relative group">
+                        <div
+                            className="w-1/2 md:w-1/6 h-full border-2 text-center border-gray-900 rounded-md items-center cursor-pointer hover:scale-x-105 ease-in-out duration-300 justify-center bg-white relative group"
+                            onClick={toPaketBimbingan}
+                        >
                             <img
                                 src={insignia}
                                 className="w-[90px] mx-auto pt-4"
@@ -92,6 +101,7 @@ function LandingPage() {
                                 <div
                                     key={item.id}
                                     className="w-1/2 md:w-1/6 h-full border-2 text-center border-gray-900 rounded-md items-center cursor-pointer hover:scale-x-105 ease-in-out duration-300 justify-center bg-white relative group"
+                                    onClick={toPaketBimbingan}
                                 >
                                     <img
                                         src={book}
